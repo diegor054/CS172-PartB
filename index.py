@@ -86,10 +86,7 @@ def retrieve(storedir, query):
     
     print(topkdocs)
 
-
 lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 create_index('lucene_index/')
 # in index.py, the retrieve function is just for debugging purposes (we call it with the query web data)
 retrieve('lucene_index/', 'web data')
-
-
