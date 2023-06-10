@@ -8,9 +8,9 @@ import json
 from org.apache.lucene.store import MMapDirectory, SimpleFSDirectory, NIOFSDirectory
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 from org.apache.lucene.document import Document, Field, FieldType
-from org.apache.lucene.queryparser.classic import QueryParser
+from org.apache.lucene.queryparser.classic import QueryParser, MultiFieldQueryParser
 from org.apache.lucene.index import FieldInfo, IndexWriter, IndexWriterConfig, IndexOptions, DirectoryReader
-from org.apache.lucene.search import IndexSearcher, BoostQuery, Query
+from org.apache.lucene.search import IndexSearcher, BoostQuery, Query, BooleanQuery, BooleanClause
 from org.apache.lucene.search.similarities import BM25Similarity
 from java.nio.file import Paths
 
@@ -71,11 +71,24 @@ def create_index(dir):
 def retrieve(storedir, query):
     searchDir = NIOFSDirectory(Paths.get(storedir))
     searcher = IndexSearcher(DirectoryReader.open(searchDir))
-    
-    parser = QueryParser('title', StandardAnalyzer())
-    parsed_query = parser.parse(query)
 
-    topDocs = searcher.search(parsed_query, 10).scoreDocs
+    boosts = {"Title": 2.0, "Body": 1.0}
+    analyzer = StandardAnalyzer()
+
+    titleBoost = boosts.get("Title", 1.0)
+    titleQuery = QueryParser("Title", analyzer).parse(query.toString())
+    boostedTitleQuery = BoostQuery(titleQuery, titleBoost)
+
+    bodyBoost = boosts.get("Body", 1.0)
+    bodyQuery = QueryParser("Body", analyzer).parse(query.toString())
+    boostedBodyQuery = BoostQuery(bodyQuery, bodyBoost)
+
+    booleanQuery = BooleanQuery.Builder()
+    booleanQuery.add(boostedTitleQuery, BooleanClause.Occur.SHOULD)
+    booleanQuery.add(boostedBodyQuery, BooleanClause.Occur.SHOULD)
+    combinedQuery = booleanQuery.build()
+
+    topDocs = searcher.search(combinedQuery, 10).scoreDocs
     topkdocs = []
     for hit in topDocs:
         doc = searcher.doc(hit.doc)
