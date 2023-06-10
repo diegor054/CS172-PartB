@@ -10,8 +10,11 @@
 <h4> Body: {{item['body']}}</h4>
 {% endif %}
 <h4> Score: {{item['score']}}</h4>
-<h2> Upvotes: {{item['upvotes']}}</h2>
-<h2> Date Of Post: {{item['date']}}</h2>
+<h4> 
+    Upvotes: <div style="color: green;" > {{item['upvotes']}} </div>
+    Downvotes: <div style="color: red;" > {{item['downvotes']}} </div>
+</h4>
+<h4> Date Of Post: {{item['date']}}</h4>
 </div>
 {% endfor %}
 
