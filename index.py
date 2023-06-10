@@ -98,6 +98,7 @@ def retrieve(storedir, query):
             "title": doc.get("Title"),
             "date": datetime.datetime.fromtimestamp(float(doc.get("CreatedUTC"))).strftime("%B %d, %Y"),
             "upvotes": doc.get("UpVotes"),
+            "downvotes": int(float(doc.get("UpVotes")) * (1 - float(doc.get("UpVotesRatio")))),
             "url": "https://www.reddit.com" + doc.get("PermaLink"),
             "body": doc.get("Body"),
         })
