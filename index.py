@@ -95,8 +95,10 @@ def retrieve(storedir, query):
         topkdocs.append({
             "score": hit.score,
             "title": doc.get("Title"),
-            "body": doc.get("Body"),
+            "createdutc": doc.get("CreatedUTC"),
+            "upvotes": doc.get("UpVotes"),
             "url": "https://www.reddit.com" + doc.get("PermaLink"),
+            "body": doc.get("Body"),
         })
     
     print(topkdocs)
