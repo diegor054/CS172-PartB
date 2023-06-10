@@ -96,7 +96,7 @@ def retrieve(storedir, query):
         topkdocs.append({
             "score": hit.score,
             "title": doc.get("Title"),
-            "date": datetime.datetime.fromtimestamp(int(doc.get("CreatedUTC"))).strftime("%B %d, %Y"),
+            "date": datetime.datetime.fromtimestamp(float(doc.get("CreatedUTC"))).strftime("%B %d, %Y"),
             "upvotes": doc.get("UpVotes"),
             "url": "https://www.reddit.com" + doc.get("PermaLink"),
             "body": doc.get("Body"),
