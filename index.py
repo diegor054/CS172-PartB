@@ -52,7 +52,7 @@ def create_index(dir):
                     commentlinktitles = post["CommentLinkTitles"]
 
                     doc = Document()
-                    doc.add(Field('Title', str(title), metaType))
+                    doc.add(Field('Title', str(title), contextType))
                     doc.add(Field('PostID', str(postid), metaType))
                     doc.add(Field('CreatedUTC', str(createdutc), metaType))
                     doc.add(Field('UpVotes', str(upvotes), metaType))
@@ -65,13 +65,14 @@ def create_index(dir):
                     #doc.add(Field('CommentLinkTitles', str(commentlinktitles), contextType))
                     writer.addDocument(doc)
     
+    writer.commit()
     writer.close()
 
 def retrieve(storedir, query):
     searchDir = NIOFSDirectory(Paths.get(storedir))
     searcher = IndexSearcher(DirectoryReader.open(searchDir))
     
-    parser = QueryParser('Title', StandardAnalyzer())
+    parser = QueryParser('title', StandardAnalyzer())
     parsed_query = parser.parse(query)
 
     topDocs = searcher.search(parsed_query, 10).scoreDocs
