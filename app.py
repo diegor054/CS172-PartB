@@ -3,6 +3,7 @@
 
 import lucene
 import os
+import datetime
 
 from org.apache.lucene.store import MMapDirectory, SimpleFSDirectory, NIOFSDirectory
 from org.apache.lucene.analysis.standard import StandardAnalyzer
@@ -43,7 +44,7 @@ def retrieve(storedir, query):
         topkdocs.append({
             "score": hit.score,
             "title": doc.get("Title"),
-            "createdutc": doc.get("CreatedUTC"),
+            "date": datetime.datetime.fromtimestamp(int(doc.get("CreatedUTC"))).strftime("%B %d, %Y"),
             "upvotes": doc.get("UpVotes"),
             "url": "https://www.reddit.com" + doc.get("PermaLink"),
             "body": doc.get("Body"),
