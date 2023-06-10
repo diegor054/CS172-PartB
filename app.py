@@ -70,7 +70,7 @@ def output():
         query = form_data['query']
         print(f"this is the query: {query}")
         lucene.getVMEnv().attachCurrentThread()
-        docs = retrieve('sample_lucene_index/', str(query))
+        docs = retrieve('lucene_index/', str(query))
         print(docs)
         return render_template('output.html',lucene_output = docs)
     
