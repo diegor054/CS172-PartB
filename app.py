@@ -16,21 +16,6 @@ from flask import request, Flask, render_template
 
 app = Flask(__name__)
 
-sample_doc = [
-    {
-        'title' : 'A',
-        'context' : 'lucene is a useful tool for searching and information retrieval'
-        },
-    {
-        'title' : 'B',
-        'context' : 'Bert is a deep learning transformer model for encoding textual data'
-    },
-    {
-        'title' : 'C',
-        'context' : 'Django is a python web framework for building backend web APIs'
-    }
-]      
-
 def retrieve(storedir, query):
     searchDir = NIOFSDirectory(Paths.get(storedir))
     searcher = IndexSearcher(DirectoryReader.open(searchDir))
