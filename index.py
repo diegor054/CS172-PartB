@@ -70,7 +70,7 @@ def retrieve(storedir, query):
     searchDir = NIOFSDirectory(Paths.get(storedir))
     searcher = IndexSearcher(DirectoryReader.open(searchDir))
     
-    parser = QueryParser('Context', StandardAnalyzer())
+    parser = QueryParser('Title', StandardAnalyzer())
     parsed_query = parser.parse(query)
 
     topDocs = searcher.search(parsed_query, 10).scoreDocs
@@ -79,7 +79,9 @@ def retrieve(storedir, query):
         doc = searcher.doc(hit.doc)
         topkdocs.append({
             "score": hit.score,
-            "text": doc.get("Context")
+            "title": doc.get("Title"),
+            "body": doc.get("Body"),
+            "url": "https://www.reddit.com" + doc.get("PermaLink"),
         })
     
     print(topkdocs)
