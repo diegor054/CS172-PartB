@@ -1,6 +1,8 @@
 {% for item in lucene_output %}
 <h2> Score: {{item['score']}}</h2>
-<h2> Passage: {{item['text']}}</h2>
+<h2> Title: {{item['title']}}</h2>
+<h2> URL: {{item['url']}}</h2>
+<h4> Body: {{item['body']}}</h4>
 {% endfor %}
 
 <form action="/input" method = "POST">
