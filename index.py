@@ -34,35 +34,36 @@ def create_index(dir):
 
     for data in os.listdir('data'):
         path = os.path.join('data', data)
-        with open(path, 'r') as file:
-            json_data = json.load(file)
+        if os.path.isfile(path) and data.endswith('.json'):
+            with open(path, 'r') as file:
+                json_data = json.load(file)
 
-            for post in json_data:
-                title = post['Title']
-                postid = post['PostID']
-                createdutc = post['CreatedUTC']
-                upvotes = post['UpVotes']
-                upvotesratio = post['UpVotesRatio']
-                posturl = post['PostURL']
-                permalink = post['PermaLink']
-                body = post['SelfText']
-                postlinktitle = post['PostLinkTitle']
-                comments = post["Comments"]
-                commentlinktitles = post["CommentLinkTitles"]
+                for post in json_data:
+                    title = post['Title']
+                    postid = post['PostID']
+                    createdutc = post['CreatedUTC']
+                    upvotes = post['UpVotes']
+                    upvotesratio = post['UpVotesRatio']
+                    posturl = post['PostURL']
+                    permalink = post['PermaLink']
+                    body = post['SelfText']
+                    postlinktitle = post['PostLinkTitle']
+                    comments = post["Comments"]
+                    commentlinktitles = post["CommentLinkTitles"]
 
-                doc = Document()
-                doc.add(Field('Title', str(title), metaType))
-                doc.add(Field('PostID', str(postid), metaType))
-                doc.add(Field('CreatedUTC', str(createdutc), metaType))
-                doc.add(Field('UpVotes', str(upvotes), metaType))
-                doc.add(Field('UpVotesRatio', str(upvotesratio), metaType))
-                doc.add(Field('PostURL', str(posturl), metaType))
-                doc.add(Field('PermaLink', str(permalink), metaType))
-                doc.add(Field('Body', str(body), contextType))
-                #doc.add(Field('PostLinkTitle', str(postlinktitle), contextType))
-                #doc.add(Field('Comments', str(comments), contextType))
-                #doc.add(Field('CommentLinkTitles', str(commentlinktitles), contextType))
-                writer.addDocument(doc)
+                    doc = Document()
+                    doc.add(Field('Title', str(title), metaType))
+                    doc.add(Field('PostID', str(postid), metaType))
+                    doc.add(Field('CreatedUTC', str(createdutc), metaType))
+                    doc.add(Field('UpVotes', str(upvotes), metaType))
+                    doc.add(Field('UpVotesRatio', str(upvotesratio), metaType))
+                    doc.add(Field('PostURL', str(posturl), metaType))
+                    doc.add(Field('PermaLink', str(permalink), metaType))
+                    doc.add(Field('Body', str(body), contextType))
+                    #doc.add(Field('PostLinkTitle', str(postlinktitle), contextType))
+                    #doc.add(Field('Comments', str(comments), contextType))
+                    #doc.add(Field('CommentLinkTitles', str(commentlinktitles), contextType))
+                    writer.addDocument(doc)
     
     writer.close()
 
