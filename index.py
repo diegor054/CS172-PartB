@@ -38,8 +38,17 @@ def create_index(dir):
             json_data = json.load(file)
 
             for post in json_data:
-                title = post['title']
-                context = post['context']
+                title = post['Title']
+                postid = post['PostID']
+                createdutc = post['CreatedUTC']
+                upvotes = post['UpVotes']
+                upvotesratio = post['UpVotesRatio']
+                posturl = post['PostURL']
+                permalink = post['PermaLink']
+                body = post['SelfText']
+                postlinktitle = post['PostLinkTitle']
+                comments = post["Comments"]
+                commentlinktitles = post["CommentLinkTitles"]
 
                 doc = Document()
                 doc.add(Field('Title', str(title), metaType))
