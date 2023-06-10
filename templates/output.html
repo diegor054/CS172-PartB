@@ -1,10 +1,14 @@
 {% for item in lucene_output %}
-<div style="border: solid #e6ecf0">
-<h2> Score: {{item['score']}}</h2>
+<header>
+    Results Found 
+</header>
+<div style="border: solid #e6ecf0; padding-left: 10px;">
+    
 <h2> Title: {{item['title']}}</h2>
-<h2> URL: {{item['url']}}</h2>
+<h3 style="color: blue;"> URL: {{item['url']}}</h3>
 <h4> Body: {{item['body']}}</h4>
 <h2> Score: {{item['score']}}</h2>
+<h2> Upvotes: {{item['UpVotes']}}</h2>
 </div>
 {% endfor %}
 
