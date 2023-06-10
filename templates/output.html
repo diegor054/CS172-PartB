@@ -1,13 +1,15 @@
-<nav>
-    Results Found 
+<nav style="text-align: center;">
+    <h1>Results Found</h1>
 </nav>
 {% for item in lucene_output %}
 <div style="border: solid #e6ecf0; padding-left: 10px;">
     
 <h2> Title: {{item['title']}}</h2>
 <a href="{{item['url']}}" >{{item['url']}}</a>
+{% if item['body'] != '' %}
 <h4> Body: {{item['body']}}</h4>
-<h2> Score: {{item['score']}}</h2>
+{% endif %}
+<h4> Score: {{item['score']}}</h4>
 <h2> Upvotes: {{item['UpVotes']}}</h2>
 </div>
 {% endfor %}
