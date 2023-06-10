@@ -24,11 +24,11 @@ def retrieve(storedir, query):
     analyzer = StandardAnalyzer()
 
     titleBoost = boosts.get("Title", 1.0)
-    titleQuery = QueryParser("Title", analyzer).parse(query.toString())
+    titleQuery = QueryParser("Title", analyzer).parse(QueryParser.escape(query))
     boostedTitleQuery = BoostQuery(titleQuery, titleBoost)
 
     bodyBoost = boosts.get("Body", 1.0)
-    bodyQuery = QueryParser("Body", analyzer).parse(query.toString())
+    bodyQuery = QueryParser("Body", analyzer).parse(QueryParser.escape(query))
     boostedBodyQuery = BoostQuery(bodyQuery, bodyBoost)
 
     booleanQuery = BooleanQuery.Builder()
