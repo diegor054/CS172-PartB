@@ -38,8 +38,8 @@ def create_index(dir):
             json_data = json.load(file)
 
             for post in json_data:
-                title = json_data['title']
-                context = json_data['context']
+                title = post['title']
+                context = post['context']
 
                 doc = Document()
                 doc.add(Field('Title', str(title), metaType))
