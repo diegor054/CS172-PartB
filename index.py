@@ -3,15 +3,16 @@ logging.disable(sys.maxsize)
 
 import lucene
 import os
+import json
 
 from org.apache.lucene.store import MMapDirectory, SimpleFSDirectory, NIOFSDirectory
-from java.nio.file import Paths
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 from org.apache.lucene.document import Document, Field, FieldType
 from org.apache.lucene.queryparser.classic import QueryParser
 from org.apache.lucene.index import FieldInfo, IndexWriter, IndexWriterConfig, IndexOptions, DirectoryReader
 from org.apache.lucene.search import IndexSearcher, BoostQuery, Query
 from org.apache.lucene.search.similarities import BM25Similarity
+from java.nio.file import Paths
 
 def create_index(dir):
     if not os.path.exists(dir):
@@ -31,14 +32,20 @@ def create_index(dir):
     contextType.setTokenized(True)
     contextType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS)
 
-    for sample in sample_doc:
-        title = sample['title']
-        context = sample['context']
+    for data in os.listdir('data'):
+        path = os.path.join('data', data)
+        with open(path, 'r') as file:
+            json_data = json.load(file)
 
-        doc = Document()
-        doc.add(Field('Title', str(title), metaType))
-        doc.add(Field('Context', str(context), contextType))
-        writer.addDocument(doc)
+            for post in json_data:
+                title = json_data['title']
+                context = json_data['context']
+
+                doc = Document()
+                doc.add(Field('Title', str(title), metaType))
+                doc.add(Field('Context', str(context), contextType))
+                writer.addDocument(doc)
+    
     writer.close()
 
 def retrieve(storedir, query):
@@ -61,7 +68,8 @@ def retrieve(storedir, query):
 
 
 lucene.initVM(vmargs=['-Djava.awt.headless=true'])
-create_index('sample_lucene_index/')
-retrieve('sample_lucene_index/', 'web data')
+create_index('lucene_index/')
+# in index.py, the retrieve function is just for debugging purposes (we call it with the query web data)
+retrieve('lucene_index/', 'web data')
 
 
