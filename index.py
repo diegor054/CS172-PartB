@@ -52,7 +52,16 @@ def create_index(dir):
 
                 doc = Document()
                 doc.add(Field('Title', str(title), metaType))
-                doc.add(Field('Context', str(context), contextType))
+                doc.add(Field('PostID', str(postid), metaType))
+                doc.add(Field('CreatedUTC', str(createdutc), metaType))
+                doc.add(Field('UpVotes', str(upvotes), metaType))
+                doc.add(Field('UpVotesRatio', str(upvotesratio), metaType))
+                doc.add(Field('PostURL', str(posturl), metaType))
+                doc.add(Field('PermaLink', str(permalink), metaType))
+                doc.add(Field('Body', str(body), contextType))
+                #doc.add(Field('PostLinkTitle', str(postlinktitle), contextType))
+                #doc.add(Field('Comments', str(comments), contextType))
+                #doc.add(Field('CommentLinkTitles', str(commentlinktitles), contextType))
                 writer.addDocument(doc)
     
     writer.close()
