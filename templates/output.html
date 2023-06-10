@@ -9,12 +9,12 @@
 {% if item['body'] != '' %}
 <h4> Body: {{item['body']}}</h4>
 {% endif %}
-<h4> Score: {{item['score']}}</h4>
 <h4> 
     <span style="color: green;">Upvotes: {{item['upvotes']}}</span>
     <span style="color: red;">Downvotes: {{item['downvotes']}}</span>
 </h4>
 <h4> Date Of Post: {{item['date']}}</h4>
+<h4> Score: {{item['score']}}</h4>
 </div>
 {% endfor %}
 
