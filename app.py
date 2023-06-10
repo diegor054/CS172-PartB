@@ -1,4 +1,4 @@
-## In the terminal, "export FLASK_APP=appd" (without .py)
+## In the terminal, "export FLASK_APP=app" (without .py)
 ## flask run -h 0.0.0.0 -p 8888
 
 import lucene
@@ -32,7 +32,6 @@ def retrieve(storedir, query):
             "text": doc.get("Context")
         })
     return topkdocs
-    #print(topkdocs)
 
 @app.route("/")
 def home():
@@ -57,16 +56,9 @@ def output():
         lucene.getVMEnv().attachCurrentThread()
         docs = retrieve('sample_lucene_index/', str(query))
         print(docs)
-        
         return render_template('output.html',lucene_output = docs)
     
 lucene.initVM(vmargs=['-Djava.awt.headless=true'])
-
     
 if __name__ == "__main__":
     app.run(debug=True)
-
-# create_index('sample_lucene_index/')
-# retrieve('sample_lucene_index/', 'web data')
-
-
