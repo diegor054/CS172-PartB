@@ -1,4 +1,4 @@
-CS 172 Part-B (Reddit Searcher & Indexer)
+##CS 172 Part-B (Reddit Searcher & Indexer)
 
 ## Instructions
 
