@@ -69,6 +69,12 @@ def create_index(dir):
     writer.commit()
     writer.close()
 
+def calculate_recency_boost(created_utc):
+    current_time = datetime.datetime.now().timestamp()
+    recency = (current_time - created_utc) / (60 * 60 * 24 * 365)
+    recency_boost = 5 / (recency + 1)
+    return recency_boost
+
 def retrieve(storedir, query):
     searchDir = NIOFSDirectory(Paths.get(storedir))
     searcher = IndexSearcher(DirectoryReader.open(searchDir))
@@ -94,7 +100,7 @@ def retrieve(storedir, query):
     for hit in topDocs:
         doc = searcher.doc(hit.doc)
         topkdocs.append({
-            "score": hit.score,
+            "score": hit.score + calculate_recency_boost(float(doc.get("CreatedUTC"))),
             "title": doc.get("Title"),
             "date": datetime.datetime.fromtimestamp(float(doc.get("CreatedUTC"))).strftime("%B %d, %Y"),
             "upvotes": doc.get("UpVotes"),
