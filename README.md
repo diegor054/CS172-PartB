@@ -9,4 +9,4 @@ https://library.ucr.edu/using-the-library/technology-equipment/connect-from-off-
 4. Enter "cd CS172-PartB", to access the project folder
 5. In the terminal, enter the following command "export FLASK_APP=app" (without .py), without the quotation marks.
 6. Then, runt he following command in order to start the application: " flask run -h 0.0.0.0 -p 8888", without the quotation marks.
-7. Paste "class-045.cs.ucr.edu" into your browser.
+7. Paste "http://class-045.cs.ucr.edu:8888/input" into your browser.
