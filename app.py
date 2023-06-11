@@ -56,6 +56,7 @@ def retrieve(storedir, query):
             "url": "https://www.reddit.com" + doc.get("PermaLink"),
             "body": doc.get("Body"),
         })
+    topkdocs.sort(key=lambda x: x["score"], reverse=True)
     
     return topkdocs
 
