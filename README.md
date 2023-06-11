@@ -1,5 +1,4 @@
-# VPN Setup
-https://library.ucr.edu/using-the-library/technology-equipment/connect-from-off-campus 
+CS 172 Part-B (Reddit Searcher & Indexer)
 
 ## Instructions
 
